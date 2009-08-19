@@ -76,10 +76,26 @@ def rank_users(prefs, test_users):
       # sort by highest rank
       rankings.sort()
       rankings.reverse()
+
+      rankings_pop=[(total_sim[item],item,users) for item,users in total_users.items()]
+      rankings_pop.sort()
+      rankings_pop.reverse()
+
       if len(rankings) > 0:
-          print "saving user %s"% person
-          write_ranks(person, rankings)
-          #write_recs(person, rankings[:10])
+          best_guess = []
+          best_guess += rankings_pop[:5]
+          print len(rankings)
+          for rank in rankings:
+            if len(best_guess) >= 10:
+                break
+            if not( rank in best_guess ):
+                best_guess.append(rank)
+
+
+
+          print "saving user %s, %d"% (person, len(best_guess))
+          #write_ranks(person, rankings)
+          write_recs(person, best_guess)
       
 
 
