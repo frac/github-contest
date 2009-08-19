@@ -34,10 +34,16 @@ def get_tanimoto(list1, list2):
 
 def write_recs(user, rankings):
     print rankings
-    ranks = [sugestion for conf,sugestion in rankings]
+    ranks = [sugestion for conf,sugestion,users in rankings]
     fd = open("results.txt", "a")
     fd.write("%s:%s\n"% (user, ",".join(ranks)))
     fd.close()
+
+def write_ranks(user, rankings):
+    fd = open("ranks.txt", "a")
+    fd.write("%s:%s\n"% (user, str(rankings)))
+    fd.close()
+
 
 def rank_users(prefs, test_users):
   for person in test_users:
@@ -65,14 +71,15 @@ def rank_users(prefs, test_users):
             total_sim[item]+=sim
 
       #list is still not normalized
-      rankings=[(total_sim[item]/users,item) for item,users in total_users.items()]
+      rankings=[(total_sim[item]/users,item,users) for item,users in total_users.items()]
 
       # sort by highest rank
       rankings.sort()
       rankings.reverse()
       if len(rankings) > 0:
           print "saving user %s"% person
-          write_recs(person, rankings[:10])
+          write_ranks(person, rankings)
+          #write_recs(person, rankings[:10])
       
 
 
