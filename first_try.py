@@ -33,7 +33,6 @@ def get_tanimoto(list1, list2):
     return 1.0 * (len(list1) + len(list2) - len(total))/ len(total)
 
 def write_recs(user, rankings):
-    print rankings
     ranks = [sugestion for conf,sugestion,users in rankings]
     fd = open("results.txt", "a")
     fd.write("%s:%s\n"% (user, ",".join(ranks)))
@@ -83,7 +82,8 @@ def rank_users(prefs, test_users):
 
       if len(rankings) > 0:
           best_guess = []
-          best_guess += rankings_pop[:10]
+          #best_guess += rankings_pop[:10]
+          best_guess += rankings[:10]
           """
           for rank in rankings:
             if len(best_guess) >= 10:
