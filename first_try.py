@@ -83,14 +83,14 @@ def rank_users(prefs, test_users):
 
       if len(rankings) > 0:
           best_guess = []
-          best_guess += rankings_pop[:5]
-          print len(rankings)
+          best_guess += rankings_pop[:10]
+          """
           for rank in rankings:
             if len(best_guess) >= 10:
                 break
             if not( rank in best_guess ):
                 best_guess.append(rank)
-
+          """
 
 
           print "saving user %s, %d"% (person, len(best_guess))
@@ -110,6 +110,6 @@ if __name__ == '__main__':
         prefs[pessoa].append(projeto)
 
     test_users = [line.strip() for line in file('base_data/test.txt')]
-    rank_users(prefs,test_users)
+    rank_users(prefs,test_users[:100])
 
 
